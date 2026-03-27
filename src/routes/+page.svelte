@@ -1,16 +1,39 @@
 <script>
-// Až vytvoříš komponent, nezapomeň jej importovat
-// Emoji se vytváří pomocí windows + . nebo je můžeš zkopírovat odsud 🙂 😢
+import Heading from "../components/Heading.svelte";
+let points = $state(0)
+let { emoji } = $props()
+emoji = "🙂"
+
+function pather() {
+    if (emoji === "😢") {
+        points -= 1
+    } else {
+        points += 1
+    }
+}
+
+function changeEmoji() {
+    if (emoji === "😢") {
+        emoji = "🙂"
+    } else {
+        emoji = "😢"
+    }
+}
 </script>
 
 <div class="headings">
-    <!-- Sem patří komponenty s nadpisy -->
+    {#if points >= 5}
+        <Heading />
+        <Heading />
+        <Heading />
+    {/if}
 </div>
 
 <div class="container">
-    <p>Zde se bude zobrazovat počet kliknutí</p> 
+    <p>{points}</p> 
     <div class="buttons">
-        <!-- Sem patří tlačítka -->
+        <button onclick={pather}>+</button>
+        <button onclick={changeEmoji}>{emoji}</button>
     </div>
 </div>
 
